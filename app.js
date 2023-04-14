@@ -8,7 +8,11 @@ app.use(cors());
 
 // Replace with your own MongoDB connection string
 const connectionString = 'mongodb+srv://pkrhtdm:987654321.0@hypermovegame.loejrx2.mongodb.net';
-mongoose.connect(connectionString, { useNewUrlParser: true, useUnifiedTopology: true });
+mongoose.connect(connectionString, { useNewUrlParser: true, useUnifiedTopology: true }).then(()=>{
+    console.log("Connected");
+}).catch((e)=>{
+    console.log(e);
+});
 
 const walletSchema = new mongoose.Schema({
     address: String,
@@ -17,8 +21,8 @@ const walletSchema = new mongoose.Schema({
 
 const Wallet = mongoose.model('Wallet', walletSchema);
 
-app.post('/saveWalletAddress', async (req, res) => {
-    const walletAddress = req.body.walletAddress;
+app.get('/saveWalletAddress', async (req, res) => {
+    const walletAddress = req.query.walletAddress;
     console.log('Received wallet address:', walletAddress); // Log the received wallet address
     let wallet = await Wallet.findOne({ address: walletAddress });
 
