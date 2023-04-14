@@ -21,8 +21,8 @@ const walletSchema = new mongoose.Schema({
 
 const Wallet = mongoose.model('Wallet', walletSchema);
 
-app.get('/saveWalletAddress', async (req, res) => {
-    const walletAddress = req.query.walletAddress;
+app.post('/saveWalletAddress', async (req, res) => {
+    const walletAddress = req.body.walletAddress;
     console.log('Received wallet address:', walletAddress); // Log the received wallet address
     let wallet = await Wallet.findOne({ address: walletAddress });
 
